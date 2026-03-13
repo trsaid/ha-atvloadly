@@ -1,0 +1,1 @@
+FROM bitxeno/atvloadly:latest

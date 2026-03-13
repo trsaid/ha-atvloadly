@@ -1,0 +1,9 @@
+name: "ATVLoadly"
+description: "AppleTV sideload service"
+version: "1.0.0"
+slug: "atvloadly"
+url: "https://github.com/trsaid/ha-atvloadly"
+init: false
+arch:
+  - aarch64
+  - amd64

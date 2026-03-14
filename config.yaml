@@ -1,5 +1,5 @@
 name: ATVLoadly
-version: "1.0.4"
+version: "1.0.5"
 slug: atvloadly
 description: Apple TV sideload server
 url: "https://github.com/trsaid/ha-atvloadly"
@@ -22,9 +22,6 @@ privileged:
 
 map:
   - config:rw
-
-ports:
-  5533/tcp: 5533
 
 environment:
   SERVICE_PORT: "5533"

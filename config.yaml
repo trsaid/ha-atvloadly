@@ -1,5 +1,5 @@
 name: ATVLoadly
-version: "1.0.5"
+version: "1.0.6"
 slug: atvloadly
 description: Apple TV sideload server
 url: "https://github.com/trsaid/ha-atvloadly"
@@ -17,8 +17,23 @@ arch:
 host_network: true
 host_dbus: true
 
+usb: true
+
 privileged:
   - SYS_ADMIN
+
+ports:
+  "5533/tcp": 5533
+ports_description:
+  "5533/tcp": "ATVLoadly Web Interface"
+
+ingress: true
+ingress_port: 5533
+
+panel_icon: "mdi:apple"
+panel_title: "ATVLoadly"
+
+webui: "http://[HOST]:[PORT:5533]"
 
 map:
   - config:rw

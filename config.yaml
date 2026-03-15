@@ -1,5 +1,5 @@
 name: ATVLoadly
-version: "1.0.10"
+version: "1.0.11"
 slug: atvloadly
 description: Apple TV sideload server
 url: "https://github.com/trsaid/ha-atvloadly"
@@ -13,6 +13,8 @@ arch:
   - aarch64
   - armv7
   - amd64
+
+host_network: true
 
 usb: true
 

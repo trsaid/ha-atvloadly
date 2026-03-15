@@ -34,22 +34,8 @@ if [ ! -f "/data/config.yaml" ]; then
     fi
 fi
 
-# ------------------------------------
-# 2. Start D-Bus daemon
-# ------------------------------------
-echo "Starting D-Bus daemon..."
-mkdir -p /var/run/dbus
-if [ -S /var/run/dbus/system_bus_socket ]; then
-    echo "D-Bus socket already exists (provided by host), skipping dbus-daemon start."
-else
-    # Clean stale pid file if present
-    rm -f /var/run/dbus/pid
-    dbus-daemon --system --nofork &
-    sleep 1
-    echo "D-Bus daemon started."
-fi
+# (D-Bus startup removed: Avahi configured to run without D-Bus)
 
-# ------------------------------------
 # 3. Start Avahi daemon
 # ------------------------------------
 echo "Starting Avahi daemon..."
@@ -64,7 +50,8 @@ fi
 # Clean stale pid
 rm -f /var/run/avahi-daemon/pid
 
-avahi-daemon --daemonize --no-chroot
+# Start avahi-daemon in the background without dbus
+avahi-daemon --no-chroot --no-drop-root &
 sleep 1
 echo "Avahi daemon started."
 

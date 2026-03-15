@@ -31,17 +31,30 @@ fi
 if [ ! -f "/data/config.yaml" ]; then
     if [ -f "/keep/config.yaml" ]; then
         cp /keep/config.yaml /data/config.yaml
-    fi
+# ------------------------------------
+# 2. Start D-Bus daemon (required for go-avahi)
+# ------------------------------------
+echo "Starting D-Bus daemon..."
+mkdir -p /var/run/dbus
+# Force our own local D-Bus instance regardless of HA host
+rm -f /var/run/dbus/pid
+rm -f /var/run/dbus/system_bus_socket
+dbus-daemon --system --nofork &
+sleep 2
+
+if [ ! -S /var/run/dbus/system_bus_socket ]; then
+    echo "ERROR: D-Bus socket was not created!"
+else
+    echo "D-Bus daemon started successfully."
 fi
 
-# (D-Bus startup removed: Avahi configured to run without D-Bus)
-
+# ------------------------------------
 # 3. Start Avahi daemon
 # ------------------------------------
 echo "Starting Avahi daemon..."
 mkdir -p /var/run/avahi-daemon
 
-# Ensure avahi user exists (should be created by package install)
+# Ensure avahi user exists
 if ! id avahi >/dev/null 2>&1; then
     echo "Warning: avahi user not found, creating..."
     useradd -r -s /usr/sbin/nologin avahi 2>/dev/null || true
@@ -50,9 +63,9 @@ fi
 # Clean stale pid
 rm -f /var/run/avahi-daemon/pid
 
-# Start avahi-daemon in the background without dbus
+# Start avahi-daemon in the background
 avahi-daemon --no-chroot --no-drop-root &
-sleep 1
+sleep 2
 echo "Avahi daemon started."
 
 # ------------------------------------

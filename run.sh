@@ -31,6 +31,9 @@ fi
 if [ ! -f "/data/config.yaml" ]; then
     if [ -f "/keep/config.yaml" ]; then
         cp /keep/config.yaml /data/config.yaml
+    fi
+fi
+
 # ------------------------------------
 # 2. Start D-Bus daemon (required for go-avahi)
 # ------------------------------------
